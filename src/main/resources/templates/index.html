@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Main Page</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
 <header th:replace="fragments/commons::nav">
-
 </header>
-    <main>
-      <section class="hero">
+<main>
+    <section class="hero">
         <h1>Take a look at our categories and choose the perfect holiday.</h1>
-      </section>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
+    </section>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
-          <div class="card">
-            <img src="/img/sea.jpg" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Sea</h5>
-              <p class="card-text">
-                A wonderful vacation near the beach.
-              </p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Marbella, Spain</li>
-                <li class="list-group-item">Dalyan, Turkey</li>
-                <li class="list-group-item">Thessaloniki, Greece</li>
-              </ul>
+            <div class="card">
+                <img src="/img/sea.jpg" class="card-img-top" alt="..."/>
+                <div class="card-body">
+                    <h5 class="card-title">Sea</h5>
+                    <p class="card-text">
+                        A wonderful vacation near the beach.
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Marbella, Spain</li>
+                        <li class="list-group-item">Dalyan, Turkey</li>
+                        <li class="list-group-item">Thessaloniki, Greece</li>
+                    </ul>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img src="/img/ski.jpg" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">Skiing</h5>
-              <p class="card-text">
-                An adventure filled with adrenaline.
-              </p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Borovets, Bulgaria</li>
-                <li class="list-group-item">Trysil, Norway</li>
-                <li class="list-group-item">Zermatt, Switzerland</li>
-              </ul>
-            </div>
-          </div>
         </div>
         <div class="col">
-          <div class="card">
-            <img src="/img/city.jpg" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">City</h5>
-              <p class="card-text">
-                Or a city full of spirit.
-              </p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Madrid, Spain</li>
-                <li class="list-group-item">Istanbul, Turkey</li>
-                <li class="list-group-item">Berlin, Germany</li>
-              </ul>
+            <div class="card">
+                <img src="/img/ski.jpg" class="card-img-top" alt="..."/>
+                <div class="card-body">
+                    <h5 class="card-title">Skiing</h5>
+                    <p class="card-text">
+                        An adventure filled with adrenaline.
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Borovets, Bulgaria</li>
+                        <li class="list-group-item">Trysil, Norway</li>
+                        <li class="list-group-item">Zermatt, Switzerland</li>
+                    </ul>
+                </div>
             </div>
-          </div>
         </div>
+        <div class="col">
+            <div class="card">
+                <img src="/img/city.jpg" class="card-img-top" alt="..."/>
+                <div class="card-body">
+                    <h5 class="card-title">City</h5>
+                    <p class="card-text">
+                        Or a city full of spirit.
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Madrid, Spain</li>
+                        <li class="list-group-item">Istanbul, Turkey</li>
+                        <li class="list-group-item">Berlin, Germany</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </main>
+    </div>
+    </div>
+</main>
 
-    <footer>
-      Kalin Softuni
-    </footer>
-    <script src="../static/js/bootstrap.min.js"></script>
-  </body>
+<footer th:replace="fragments/commons::footer">
+</footer>
+<script src="../static/js/bootstrap.min.js"></script>
+</body>
 </html>

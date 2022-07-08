@@ -1,48 +1,47 @@
 body {
-  background-image: url("../img/bg.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-color: #464646;
-  padding-left: 50px;
-  padding-right: 50px;
+    background-image: url("../img/bg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 .hero {
-  padding-top: 50px;
-  text-align: center;
-  height: 150px;
+    padding-top: 50px;
+    text-align: center;
+    height: 150px;
 }
 
 .card {
-  width: 80%;
+    width: 80%;
 }
 
 .card-img-top {
-  width: 100%;
-  height: 15vw;
-  object-fit: cover;
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 
-.log-in,
-.register-form {
-  position: absolute;
-  top: 42%;
-  left: 35%;
-  width: 400px;
-  font-weight: 800;
-  background: white;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.log-in button,
-.register-form button {
-  margin-top: 20px;
-}
+/*.register-form {*/
+/*    position: absolute;*/
+/*    top: 42%;*/
+/*    left: 35%;*/
+/*    width: 400px;*/
+/*    font-weight: 800;*/
+/*    background: white;*/
+/*    border-radius: 10px;*/
+/*    text-align: center;*/
+/*}*/
 
 .register-form {
-  top: 25%;
-  left: 35%;
+    top: 25%;
+    left: 35%;
 }
+
+.log-in-form label {
+    text-align: left;
+}
+
