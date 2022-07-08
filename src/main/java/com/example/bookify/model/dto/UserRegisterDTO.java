@@ -1,19 +1,33 @@
 package com.example.bookify.model.dto;
 
+import javax.validation.constraints.*;
+
 public class UserRegisterDTO {
-//todo login too -> field validations
+
+    @NotNull(message = "Username must be between 3 and 20 characters.")
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters.")
     private String username;
 
+    @NotBlank(message = "First name is required.")
     private String firstName;
 
+    @NotBlank(message = "Last name is required.")
     private String lastName;
 
+    @NotBlank(message = "Email is required.")
+    @Email
     private String email;
 
+    @NotNull(message = "Age is required.")
+    @Positive
     private int age;
 
+    @NotNull(message = "Password is required.")
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters.")
     private String password;
 
+    @NotBlank(message = "Confirmation of password is required.")
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters.")
     private String confirmPassword;
 
     public UserRegisterDTO() {

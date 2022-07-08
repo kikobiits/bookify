@@ -3,11 +3,17 @@ package com.example.bookify.web;
 import com.example.bookify.model.dto.UserRegisterDTO;
 import com.example.bookify.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
+@RequestMapping("/users")
 public class UserRegisterController {
 
     private final UserService userService;
@@ -16,14 +22,24 @@ public class UserRegisterController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/register")
+    @GetMapping("/register")
     public String register() {
 
         return "register-auth";
     }
 
-    @PostMapping("/users/register")
-    public String registerConfirm(UserRegisterDTO userRegisterDTO) {
+    @PostMapping("/register")
+    public String registerConfirm(@Valid UserRegisterDTO userRegisterDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO",
+                    bindingResult);
+
+            return "redirect:register";
+        }
 
         userService.registerAndLogin(userRegisterDTO);
 
