@@ -23,6 +23,8 @@ public class User extends BaseEntity{
 
     private String password;
 
+    private boolean isActive;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
@@ -83,5 +85,13 @@ public class User extends BaseEntity{
 
     public void setUserRoles(List<UserRoleEntity> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.bookify.model.dto;
 
 import com.example.bookify.model.enums.BedroomTypeEnum;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -11,7 +12,8 @@ public class AddOfferDTO {
     @NotNull
     private BedroomTypeEnum roomType;
 
-    @FutureOrPresent
+    @FutureOrPresent(message = "Availability cannot be in the past.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate availableUntil;
 
     @NotEmpty

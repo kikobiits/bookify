@@ -25,23 +25,49 @@ body {
     object-fit: cover;
 }
 
-/*.register-form {*/
-/*    position: absolute;*/
-/*    top: 42%;*/
-/*    left: 35%;*/
-/*    width: 400px;*/
-/*    font-weight: 800;*/
-/*    background: white;*/
-/*    border-radius: 10px;*/
-/*    text-align: center;*/
-/*}*/
-
 .register-form {
-    top: 25%;
-    left: 35%;
+    position: absolute;
+    top: 30%;
+    left: 28%;
+    width: 800px;
+    height: 600px;
+    font-weight: 800;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 12px;
+}
+
+.register-form label{
+    color: black;
+    font-weight: normal;
+    padding: 12px;
+}
+
+.register-form input{
+    padding: 10px;
 }
 
 .log-in-form label {
     text-align: left;
+}
+
+.addoffer-form {
+    position: absolute;
+    top: 10%;
+    left: 28%;
+    width: 800px;
+    height: 800px;
+    font-weight: 800;
+    background: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 12px;
+}
+
+.addoffer-form label{
+    color: black;
+    font-weight: normal;
+    padding: 12px;
 }
 

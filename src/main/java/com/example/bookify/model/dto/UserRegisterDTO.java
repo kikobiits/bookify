@@ -1,11 +1,14 @@
 package com.example.bookify.model.dto;
 
+import com.example.bookify.model.validator.UniqueUsername;
+
 import javax.validation.constraints.*;
 
 public class UserRegisterDTO {
 
     @NotNull(message = "Username must be between 3 and 20 characters.")
     @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters.")
+    @UniqueUsername(message = "Username should be unique.")
     private String username;
 
     @NotBlank(message = "First name is required.")

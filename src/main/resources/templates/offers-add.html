@@ -1,52 +1,34 @@
 <!DOCTYPE html>
-<html
-        lang="en"
-        xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/commons::head"></head>
 <body class="bg-secondary">
 <header th:replace="fragments/commons::nav"></header>
-<main role="main" class="bg-secondary">
-    <div class="jumbotron">
-        <div class="container text-light">
-            <h1 class="display-3">
-                <strong
-                        class="bg-blur rounded border-left border-white pl-3 border-bottom"
-                >Add offer</strong
-                >
-            </h1>
-        </div>
-        <div class="container bg-blur rounded p-5 mt-5 w-75">
-            <form
-                    th:action="@{/offers/add}"
-                    th:method="post"
-                    th:object="${addOfferDTO}"
-                    class="text-center text-light">
+<main class="addoffer-form">
+    <div class="container">
+        <h1 class="display-3">
+            <strong
+                    class="bg-blur rounded border-left border-white pl-3 border-bottom">Add offer</strong>
+        </h1>
+    </div>
+    <div class="container rounded p-5 mt-5 w-75">
+        <form
+                th:action="@{/offers/add}"
+                th:method="post"
+                th:object="${addOfferDTO}"
+                class="text-center text-light">
+            <div class="form-group row">
                 <div class="form-group row">
-                    <label for="roomType" class="col-sm-2 col-form-label">Room Type</label>
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <select
-                                th:field="*{roomType}"
-                                th:errorclass="is-invalid"
-                                id="roomType"
-                                name="roomType"
-                                class="custom-select"
-                                aria-describedby="categoryHelpInline">
-                            <option value="" selected>Room Type</option>
-                            <option
-                                    th:each="r : ${T(com.example.bookify.model.enums.BedroomTypeEnum).values()}"
-                                    th:value="${r}"
-                                    th:text="${r}">
-                                Single
-                            </option>
-                        </select>
-                        <small
-                                id="roomTypeHelpInline"
-                                class="invalid-feedback text-light rounded">
-                            You must select a room type.
-                        </small>
+                        <input
+                                th:field="*{name}"
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                aria-describedby="nameHelpInline"/>
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label for="cityCountry" class="col-sm-2 col-form-label">City, Country</label>
                     <div class="col-sm-10">
@@ -56,25 +38,12 @@
                                 type="text"
                                 class="form-control"
                                 id="cityCountry"
-                                aria-describedby="cityCountryHelpInline"
-                                placeholder="cityCountry"/>
+                                aria-describedby="cityCountryHelpInline"/>
                         <small
                                 id="cityCountryHelpInline"
-                                class="invalid-feedback text-light rounded">
+                                class="invalid-feedback rounded">
                             You must specify the location.
                         </small>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="name" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-10">
-                        <input
-                                th:field="*{name}"
-                                type="text"
-                                class="form-control"
-                                id="name"
-                                aria-describedby="nameHelpInline"
-                                placeholder="name"/>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -86,22 +55,44 @@
                                 type="text"
                                 class="form-control"
                                 id="address"
-                                aria-describedby="addressHelpInline"
-                                placeholder="address"/>
+                                aria-describedby="addressHelpInline"/>
                         <small
                                 id="lastNameHelpInline"
-                                class="invalid-feedback text-light rounded">
+                                class="invalid-feedback rounded">
                             You must enter an address.
                         </small>
                     </div>
                 </div>
+                <label for="roomType" class="col-sm-2 col-form-label">Room Type</label>
+                <div class="col-sm-10">
+                    <select
+                            th:field="*{roomType}"
+                            th:errorclass="is-invalid"
+                            id="roomType"
+                            name="roomType"
+                            class="custom-select"
+                            aria-describedby="categoryHelpInline">
+                        <option value="" selected>Room Type</option>
+                        <option
+                                th:each="r : ${T(com.example.bookify.model.enums.BedroomTypeEnum).values()}"
+                                th:value="${r}"
+                                th:text="${r}">
+                            Single
+                        </option>
+                    </select>
+                    <small
+                            id="roomTypeHelpInline"
+                            class="invalid-feedback rounded">
+                        You must select a room type.
+                    </small>
+                </div>
                 <div class="form-group row">
                     <label for="availableUntil" class="col-sm-2 col-form-label">Available Until</label>
                     <div class="col-sm-10">
-                        <input th:field="*{availableUntil}" th:errorclass="is-invalid" type="datetime-local"
+                        <input th:field="*{availableUntil}" th:errorclass="is-invalid" type="date"
                                class="form-control" id="availableUntil"
                                aria-describedby="availableUntilHelpInline">
-                        <small id="orderTimeHelpInline" class="invalid-feedback text-light rounded">
+                        <small id="orderTimeHelpInline" class="invalid-feedback rounded">
                             Availability must be present or future.
                         </small>
                     </div>
@@ -115,11 +106,10 @@
                                 type="number"
                                 class="form-control"
                                 id="pricePerNight"
-                                aria-describedby="pricePerNightHelpInline"
-                                placeholder="pricePerNight"/>
+                                aria-describedby="pricePerNightHelpInline"/>
                         <small
                                 id="passwordHelpInline"
-                                class="invalid-feedback bg-danger text-light rounded">
+                                class="invalid-feedback bg-danger rounded">
                             Price must be positive.
                         </small>
                     </div>
@@ -130,24 +120,23 @@
                         <input
                                 th:field="*{imageUrl}"
                                 th:errorclass="is-invalid"
-                                type="password"
+                                type="text"
                                 class="form-control"
                                 id="imageUrl"
-                                aria-describedby="imageUrlHelpInline"
-                                placeholder="imageUrl"/>
+                                aria-describedby="imageUrlHelpInline"/>
                         <small
-                                id="confirmPasswordHelpInline"
-                                class="invalid-feedback text-light rounded">
+                                id="imageUrlHelpInline"
+                                class="invalid-feedback rounded">
                             You must enter an Image URL.
                         </small>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-info w-50">Submit Offer</button>
-            </form>
-            <hr class="bg-light"/>
-        </div>
+            </div>
+        </form>
+        <hr class="bg-light"/>
     </div>
 </main>
-<footer th:replace="fragments/commons::footer"></footer>
+<script src="../static/js/bootstrap.min.js"></script>
 </body>
 </html>

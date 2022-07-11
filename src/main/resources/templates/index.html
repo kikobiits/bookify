@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Main Page</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/styles.css"/>
+<head th:replace="fragments/commons::head">
 </head>
 <body>
-<header th:replace="fragments/commons::nav">
-</header>
+<header th:replace="fragments/commons::nav"></header>
 <main>
     <section class="hero">
         <h1>Take a look at our categories and choose the perfect holiday.</h1>
@@ -69,8 +62,7 @@
     </div>
 </main>
 
-<footer th:replace="fragments/commons::footer">
-</footer>
+<footer th:replace="fragments/commons::footer"></footer>
 <script src="../static/js/bootstrap.min.js"></script>
 </body>
 </html>

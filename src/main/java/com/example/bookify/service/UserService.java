@@ -3,6 +3,7 @@ package com.example.bookify.service;
 import com.example.bookify.model.dto.UserLoginDTO;
 import com.example.bookify.model.dto.UserRegisterDTO;
 import com.example.bookify.model.entity.User;
+import com.example.bookify.model.mapper.UserMapping;
 import com.example.bookify.repository.UserRepository;
 import com.example.bookify.user.CurrentUser;
 import org.slf4j.Logger;
@@ -19,11 +20,13 @@ public class UserService {
     private Logger LOGGER = LoggerFactory.getLogger(UserService.class);
     private final CurrentUser currentUser;
     private final PasswordEncoder passwordEncoder;
+    private UserMapping userMapping;
 
-    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, CurrentUser currentUser, PasswordEncoder passwordEncoder, UserMapping userMapping) {
         this.userRepository = userRepository;
         this.currentUser = currentUser;
         this.passwordEncoder = passwordEncoder;
+        this.userMapping = userMapping;
     }
 
     public boolean login(UserLoginDTO userLoginDTO) {
@@ -52,13 +55,8 @@ public class UserService {
 
     public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
 
-        User newUser = new User();
+        User newUser = userMapping.userDtoToUser(userRegisterDTO);
 
-        newUser.setUsername(userRegisterDTO.getUsername());
-        newUser.setEmail(userRegisterDTO.getEmail());
-        newUser.setAge(userRegisterDTO.getAge());
-        newUser.setFirstName(userRegisterDTO.getFirstName());
-        newUser.setLastName(userRegisterDTO.getLastName());
         newUser.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
         newUser = userRepository.save(newUser);
@@ -69,7 +67,7 @@ public class UserService {
     private void login(User user) {
 
         currentUser.setLoggedIn(true);
-        currentUser.setName(user.getFirstName() + " " + user.getLastName());
+        currentUser.setName(user.getUsername());
     }
 
     public void logout() {
