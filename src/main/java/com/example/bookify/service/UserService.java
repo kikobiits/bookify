@@ -37,9 +37,9 @@ public class UserService {
 
         newUser = userRepository.save(newUser);
 
-        login(newUser);
-
         emailService.sendRegistrationEmail(newUser.getEmail(), newUser.getUsername());
+
+        login(newUser);
     }
 
     private void login(User user) {
