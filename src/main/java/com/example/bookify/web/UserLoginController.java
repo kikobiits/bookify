@@ -23,7 +23,7 @@ public class UserLoginController {
             RedirectAttributes redirectAttributes) {
 
         redirectAttributes.addFlashAttribute(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY, username);
-        redirectAttributes.addFlashAttribute("bad_credentials", true);
+        redirectAttributes.addFlashAttribute("badCredentials", true);
 
         return "redirect:/users/login";
     }

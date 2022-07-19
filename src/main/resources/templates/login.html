@@ -22,7 +22,7 @@
                                    name="username"
                                    th:value="${username}"
                                    aria-describedby="usernameHelpInline" placeholder="Username">
-                            <small th:if="${bad_credentials}"
+                            <small th:if="${badCredentials}"
                                    id="usernameHelpInline"
                                    class="bg-danger rounded">
                                 Username length must be between 5 and 20 characters.
