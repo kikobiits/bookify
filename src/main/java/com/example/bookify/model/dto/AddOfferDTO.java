@@ -9,27 +9,27 @@ import java.time.LocalDate;
 
 public class AddOfferDTO {
 
-    @NotNull
+    @NotNull(message = "Room type name is required.")
     private BedroomTypeEnum roomType;
 
     @FutureOrPresent(message = "Availability cannot be in the past.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate availableUntil;
 
-    @NotEmpty
+    @NotEmpty(message = "Image Url name is required.")
     private String imageUrl;
 
-    @Positive
-    @NotNull
+    @Positive(message = "Price must be a positive number.")
+    @NotNull(message = "Price is required.")
     private BigDecimal pricePerNight;
 
-    @NotBlank
+    @NotBlank(message = "You must enter a name for the listing.")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "Location is required.")
     private String cityCountry;
 
-    @NotBlank
+    @NotBlank(message = "Address is required.")
     private String address;
 
     public AddOfferDTO() {

@@ -2,8 +2,9 @@ package com.example.bookify.web;
 
 import com.example.bookify.model.dto.AddOfferDTO;
 import com.example.bookify.service.OfferService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,7 +40,8 @@ public class OfferController {
     @PostMapping("/add")
     public String addOfferConfirm(@Valid AddOfferDTO addOfferDTO,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
+                                  RedirectAttributes redirectAttributes,
+                                  @AuthenticationPrincipal UserDetails userDetails) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addOfferDTO", addOfferDTO);
@@ -48,7 +50,7 @@ public class OfferController {
             return "redirect:add";
         }
 
-        offerService.addOffer(addOfferDTO);
+        offerService.addOffer(addOfferDTO, userDetails);
 
         return "redirect:all";
     }
