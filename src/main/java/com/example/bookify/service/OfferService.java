@@ -1,11 +1,14 @@
 package com.example.bookify.service;
 
 import com.example.bookify.model.dto.AddOfferDTO;
+import com.example.bookify.model.dto.OfferDetailsDTO;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.User;
 import com.example.bookify.model.mapper.OfferMapper;
 import com.example.bookify.repository.OfferRepository;
 import com.example.bookify.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +35,11 @@ public class OfferService {
 
         newOffer.setPostedBy(user);
         offerRepository.save(newOffer);
+    }
+
+    public Page<OfferDetailsDTO> getAllOffers(Pageable pageable) {
+
+       return offerRepository.findAll(pageable)
+               .map(offerMapper::offerEntityToCardListingOfferDto);
     }
 }

@@ -21,6 +21,7 @@ public class EmailService {
     }
 
     public void sendRegistrationEmail(String userEmail, String userName) {
+
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
@@ -36,7 +37,11 @@ public class EmailService {
             throw new RuntimeException(e);
         }
     }
+
+    //todo email upon booking a vacation
+
     private String generateMessageContent(String userName) {
+
         Context ctx = new Context();
 
         ctx.setVariable("userName", userName);

@@ -15,6 +15,12 @@ body {
     height: 150px;
 }
 
+.personal-footer {
+    color: yellow;
+    font-weight: lighter;
+    font-style: italic;
+}
+
 .card {
     width: 80%;
 }
@@ -69,5 +75,10 @@ body {
     color: black;
     font-weight: normal;
     padding: 12px;
+}
+
+.nice-pagination nav {
+    width: 20px;
+    padding: 50px;
 }
 

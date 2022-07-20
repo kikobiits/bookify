@@ -30,6 +30,8 @@ public class SecurityConfig {
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
                 // everyone can log in and register
                         antMatchers("/", "/users/login", "/users/register").permitAll().
+                        antMatchers("/offers/all").permitAll().
+
                 antMatchers("/offers/**").permitAll().
                 // all other pages are available for logger in users
                         anyRequest().
@@ -63,7 +65,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository){
+    public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new BookifyUserDetailsService(userRepository);
     }
 }
