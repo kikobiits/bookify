@@ -1,4 +1,4 @@
-package com.example.bookify.model.dto;
+package com.example.bookify.model.view;
 
 import com.example.bookify.model.entity.User;
 import com.example.bookify.model.enums.BedroomTypeEnum;
@@ -6,7 +6,7 @@ import com.example.bookify.model.enums.BedroomTypeEnum;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class OfferDetailsDTO {
+public class ReservationsViewModel {
 
     private Long id;
 
@@ -26,7 +26,15 @@ public class OfferDetailsDTO {
 
     private User postedBy;
 
-    public OfferDetailsDTO() {
+    public ReservationsViewModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public BedroomTypeEnum getRoomType() {
@@ -91,13 +99,5 @@ public class OfferDetailsDTO {
 
     public void setPostedBy(User postedBy) {
         this.postedBy = postedBy;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }
