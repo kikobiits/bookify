@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -44,18 +45,19 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
-    public List<ReservationsViewModel> getReservations(String username) {
+    public List<ReservationsViewModel> getCurrentUserReservations(String username) {
 
         User user = userRepository.findByUsername(username).orElseThrow();
 
-        return reservationRepository.findAllById(user.getId())
+
+        List<ReservationsViewModel> collect = reservationRepository.findAllByReservedBy(user)
                 .stream()
                 .map(item -> {
-
                     Offer offer = item.getOffer();
 
                     return offerMapper.offerToReservationViewModel(offer);
-
-                }).toList();
+                })
+                .collect(Collectors.toList());
+        return collect;
     }
 }
