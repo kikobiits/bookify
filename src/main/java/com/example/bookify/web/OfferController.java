@@ -1,6 +1,7 @@
 package com.example.bookify.web;
 
 import com.example.bookify.model.dto.AddOfferDTO;
+import com.example.bookify.model.dto.SearchOfferDTO;
 import com.example.bookify.service.OfferService;
 import com.example.bookify.service.ReservationService;
 import org.springframework.data.domain.Pageable;
@@ -64,17 +65,60 @@ public class OfferController {
         return "redirect:all";
     }
 
-    @GetMapping("/reserve/{id}")
-    public String reserveLocation(@PathVariable Long id,
-                                  @AuthenticationPrincipal UserDetails userDetails) {
+//    @GetMapping("/reserve/{id}")
+//    public String reserveLocation(@PathVariable Long id,
+//                                  @AuthenticationPrincipal UserDetails userDetails) {
+//
+//        reservationService.reserveOffer(id, userDetails);
+//
+//        return "redirect:/reservations";
+//    }
 
-        reservationService.reserveOffer(id, userDetails);
+    @GetMapping("/{id}/details")
+    public String getOfferDetail(@PathVariable("id") Long id, Model model) {
 
-        return "redirect:/reservations";
+        model.addAttribute("offer", offerService.findOfferById(id));
+
+        return "offer-details";
+    }
+
+
+    @GetMapping("/search")
+    public String searchOffer(){
+        return "offer-search";
+    }
+
+    @GetMapping("/search/{name}")
+    public String searchResults(@PathVariable String name, Model model) {
+
+        model.addAttribute("offers", offerService.findOfferByName(name));
+
+        return "offer-search";
+    }
+
+    @PostMapping("/search")
+    public String searchQuery(@Valid SearchOfferDTO searchOfferDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("searchOfferModel", searchOfferDTO);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.searchOfferModel",
+                    bindingResult);
+            return "redirect:/search";
+        }
+
+        return String.format("redirect:/offers/search/%s", searchOfferDTO.getName());
     }
 
     @ModelAttribute
     public AddOfferDTO addOfferDTO() {
         return new AddOfferDTO();
+    }
+
+    @ModelAttribute(name = "searchOfferModel")
+    private SearchOfferDTO searchOfferDTO() {
+        return new SearchOfferDTO();
     }
 }

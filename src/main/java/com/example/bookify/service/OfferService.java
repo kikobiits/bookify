@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OfferService {
 
@@ -39,7 +41,20 @@ public class OfferService {
 
     public Page<OfferDetailsDTO> getAllOffers(Pageable pageable) {
 
-       return offerRepository.findAll(pageable)
-               .map(offerMapper::offerEntityToCardListingOfferDto);
+        return offerRepository.findAll(pageable)
+                .map(offerMapper::offerEntityToCardListingOfferDto);
+    }
+
+    public List<OfferDetailsDTO> findOfferByName(String name) {
+    //todo case insensitive
+        return offerRepository.findAllByName(name)
+                .stream().map(offerMapper::offerEntityToCardListingOfferDto)
+                .toList();
+    }
+
+    public OfferDetailsDTO findOfferById(Long id) {
+        return offerRepository.findById(id)
+                .map(offerMapper::offerEntityToCardListingOfferDto)
+                .orElse(null);
     }
 }
