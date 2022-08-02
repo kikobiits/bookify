@@ -32,8 +32,8 @@ public class SecurityConfig {
                         antMatchers("/", "/users/login", "/users/register").permitAll().
                         antMatchers("/offers/all").permitAll().
 
-                antMatchers("/offers/**").permitAll().
-                // all other pages are available for logger in users
+                antMatchers("/offers/**", "/api/**").permitAll().
+                // all other pages are available for logged-in users
                         anyRequest().
                 authenticated().
                 and().

@@ -86,7 +86,7 @@ body {
     background-color: firebrick;
 }
 
-.search-tab  {
+.search-tab {
     position: relative;
     left: 39%;
 
@@ -94,4 +94,31 @@ body {
 
 .search-tab button {
     color: yellow;
+}
+
+.offer-comment-section {
+    grid-column: 1/4;
+    grid-row: 4;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    position: absolute;
+    right: 15%;
+}
+
+.offer-comment-section input  {
+    border: 2px solid deepskyblue;
+    border-radius: 4px;
+    color: black;
+}
+
+#reserveInput {
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    width: 15%;
+    border: 2px solid deepskyblue;
+    border-radius: 4px;
+    padding: 8px;
 }

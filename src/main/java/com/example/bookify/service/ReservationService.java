@@ -11,33 +11,34 @@ import com.example.bookify.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
 
-    private final ReservationRepository reservationRepository;
     private final OfferRepository offerRepository;
     private final UserRepository userRepository;
     private final OfferMapper offerMapper;
+    private final ReservationRepository reservationRepository;
 
-    public ReservationService(ReservationRepository reservationRepository, OfferRepository offerRepository, UserRepository userRepository, OfferMapper offerMapper) {
-        this.reservationRepository = reservationRepository;
+    public ReservationService(OfferRepository offerRepository, UserRepository userRepository, OfferMapper offerMapper, ReservationRepository reservationRepository) {
         this.offerRepository = offerRepository;
         this.userRepository = userRepository;
         this.offerMapper = offerMapper;
+        this.reservationRepository = reservationRepository;
     }
 
     public void reserveOffer(Long id, UserDetails userDetails) {
 
         Offer offer = offerRepository.getById(id);
 
-        Reservation reservation = new Reservation();
-
         User user = userRepository
                 .findByUsername(userDetails.getUsername())
                 .orElse(null);
+
+        Reservation reservation = new Reservation();
 
         reservation.setReservedBy(user);
         reservation.setOffer(offer);
@@ -49,7 +50,6 @@ public class ReservationService {
 
         User user = userRepository.findByUsername(username).orElseThrow();
 
-
         List<ReservationsViewModel> collect = reservationRepository.findAllByReservedBy(user)
                 .stream()
                 .map(item -> {
@@ -59,5 +59,13 @@ public class ReservationService {
                 })
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    @Transactional
+    public void cancelReservation(Long id) {
+
+        Offer offer = offerRepository.findById(id).orElse(null);
+
+        reservationRepository.deleteByOfferId(offer.getId());
     }
 }

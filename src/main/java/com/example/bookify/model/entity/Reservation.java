@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name = "reservations")
 public class Reservation extends BaseEntity{
 
-    @OneToOne
+    @ManyToOne
     private User reservedBy;
 
-    @ManyToOne
+    @OneToOne
     private Offer offer;
 
     public Reservation() {

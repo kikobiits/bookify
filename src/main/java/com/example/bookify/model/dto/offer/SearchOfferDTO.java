@@ -1,4 +1,4 @@
-package com.example.bookify.model.dto;
+package com.example.bookify.model.dto.offer;
 
 import javax.validation.constraints.NotEmpty;
 

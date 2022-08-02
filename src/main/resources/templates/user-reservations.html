@@ -38,6 +38,7 @@
                     <div class="card-text"><span>• Posted by:  <th:block
                             th:text="*{postedBy.getUsername()}"></th:block> </span></div>
                 </li>
+<!--                todo add all fields-->
             </ul>
             <a th:href="@{/reservations/cancel/{id}(id = *{id})}">
                 <button type="submit" class="btn btn-info w-50">Cancel reservation.</button>

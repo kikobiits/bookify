@@ -16,7 +16,11 @@ public class Offer extends BaseEntity {
     @Column(nullable = false)
     private BedroomTypeEnum roomType;
 
+    private LocalDate availableFrom;
+
     private LocalDate availableUntil;
+
+    private Integer numberOfPeople;
 
     @Column(nullable = false)
     private String imageUrl;
@@ -101,5 +105,21 @@ public class Offer extends BaseEntity {
 
     public void setPostedBy(User postedBy) {
         this.postedBy = postedBy;
+    }
+
+    public LocalDate getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public void setAvailableFrom(LocalDate availableFrom) {
+        this.availableFrom = availableFrom;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }

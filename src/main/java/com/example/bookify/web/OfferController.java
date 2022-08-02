@@ -1,7 +1,7 @@
 package com.example.bookify.web;
 
-import com.example.bookify.model.dto.AddOfferDTO;
-import com.example.bookify.model.dto.SearchOfferDTO;
+import com.example.bookify.model.dto.offer.AddOfferDTO;
+import com.example.bookify.model.dto.offer.SearchOfferDTO;
 import com.example.bookify.service.OfferService;
 import com.example.bookify.service.ReservationService;
 import org.springframework.data.domain.Pageable;
@@ -65,15 +65,6 @@ public class OfferController {
         return "redirect:all";
     }
 
-//    @GetMapping("/reserve/{id}")
-//    public String reserveLocation(@PathVariable Long id,
-//                                  @AuthenticationPrincipal UserDetails userDetails) {
-//
-//        reservationService.reserveOffer(id, userDetails);
-//
-//        return "redirect:/reservations";
-//    }
-
     @GetMapping("/{id}/details")
     public String getOfferDetail(@PathVariable("id") Long id, Model model) {
 
@@ -82,9 +73,17 @@ public class OfferController {
         return "offer-details";
     }
 
+    @GetMapping("/{id}/details/reserve")
+    public String reserveLocation(@PathVariable("id") Long id,
+                                  @AuthenticationPrincipal UserDetails userDetails) {
+
+        reservationService.reserveOffer(id, userDetails);
+
+        return "redirect:/reservations";
+    }
 
     @GetMapping("/search")
-    public String searchOffer(){
+    public String searchOffer() {
         return "offer-search";
     }
 

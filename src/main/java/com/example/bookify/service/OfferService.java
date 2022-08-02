@@ -1,7 +1,7 @@
 package com.example.bookify.service;
 
-import com.example.bookify.model.dto.AddOfferDTO;
-import com.example.bookify.model.dto.OfferDetailsDTO;
+import com.example.bookify.model.dto.offer.AddOfferDTO;
+import com.example.bookify.model.dto.offer.OfferDetailsDTO;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.User;
 import com.example.bookify.model.mapper.OfferMapper;

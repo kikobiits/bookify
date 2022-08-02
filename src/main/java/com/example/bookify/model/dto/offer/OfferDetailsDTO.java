@@ -1,38 +1,36 @@
-package com.example.bookify.model.dto;
+package com.example.bookify.model.dto.offer;
 
+import com.example.bookify.model.entity.User;
 import com.example.bookify.model.enums.BedroomTypeEnum;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class AddOfferDTO {
+public class OfferDetailsDTO {
 
-    @NotNull(message = "Room type name is required.")
+    private Long id;
+
     private BedroomTypeEnum roomType;
 
-    @FutureOrPresent(message = "Availability cannot be in the past.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate availableFrom;
+
     private LocalDate availableUntil;
 
-    @NotEmpty(message = "Image Url name is required.")
+    private Integer numberOfPeople;
+
     private String imageUrl;
 
-    @Positive(message = "Price must be a positive number.")
-    @NotNull(message = "Price is required.")
     private BigDecimal pricePerNight;
 
-    @NotBlank(message = "You must enter a name for the listing.")
     private String name;
 
-    @NotBlank(message = "Location is required.")
     private String cityCountry;
 
-    @NotBlank(message = "Address is required.")
     private String address;
 
-    public AddOfferDTO() {
+    private User postedBy;
+
+    public OfferDetailsDTO() {
     }
 
     public BedroomTypeEnum getRoomType() {
@@ -89,5 +87,37 @@ public class AddOfferDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public User getPostedBy() {
+        return postedBy;
+    }
+
+    public void setPostedBy(User postedBy) {
+        this.postedBy = postedBy;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getAvailableFrom() {
+        return availableFrom;
+    }
+
+    public void setAvailableFrom(LocalDate availableFrom) {
+        this.availableFrom = availableFrom;
+    }
+
+    public Integer getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(Integer numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }
