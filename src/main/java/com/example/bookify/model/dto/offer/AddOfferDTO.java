@@ -1,6 +1,7 @@
 package com.example.bookify.model.dto.offer;
 
 import com.example.bookify.model.enums.BedroomTypeEnum;
+import com.example.bookify.model.enums.CategoryNameEnum;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -11,6 +12,9 @@ public class AddOfferDTO {
 
     @NotNull(message = "Room type name is required.")
     private BedroomTypeEnum roomType;
+
+    @NotNull(message = "Category is required.")
+    private CategoryNameEnum category;
 
     @FutureOrPresent(message = "Availability cannot be in the past.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -112,5 +116,13 @@ public class AddOfferDTO {
 
     public void setNumberOfPeople(Integer numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public CategoryNameEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryNameEnum category) {
+        this.category = category;
     }
 }

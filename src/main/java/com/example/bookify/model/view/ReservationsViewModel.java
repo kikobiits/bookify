@@ -2,6 +2,7 @@ package com.example.bookify.model.view;
 
 import com.example.bookify.model.entity.User;
 import com.example.bookify.model.enums.BedroomTypeEnum;
+import com.example.bookify.model.enums.CategoryNameEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +12,8 @@ public class ReservationsViewModel {
     private Long id;
 
     private BedroomTypeEnum roomType;
+
+    private CategoryNameEnum category;
 
     private LocalDate availableUntil;
 
@@ -99,5 +102,13 @@ public class ReservationsViewModel {
 
     public void setPostedBy(User postedBy) {
         this.postedBy = postedBy;
+    }
+
+    public CategoryNameEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryNameEnum category) {
+        this.category = category;
     }
 }

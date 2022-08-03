@@ -2,11 +2,13 @@ package com.example.bookify.service;
 
 import com.example.bookify.model.dto.offer.AddOfferDTO;
 import com.example.bookify.model.dto.offer.OfferDetailsDTO;
+import com.example.bookify.model.entity.Category;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.User;
-import com.example.bookify.model.mapper.OfferMapper;
+import com.example.bookify.repository.CategoryRepository;
 import com.example.bookify.repository.OfferRepository;
 import com.example.bookify.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,43 +20,47 @@ import java.util.List;
 public class OfferService {
 
     private final OfferRepository offerRepository;
-    private final OfferMapper offerMapper;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
-    public OfferService(OfferRepository offerRepository, OfferMapper offerMapper, UserRepository userRepository) {
+    public OfferService(OfferRepository offerRepository, UserRepository userRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
-        this.offerMapper = offerMapper;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
 
     public void addOffer(AddOfferDTO addOfferDTO, UserDetails userDetails) {
 
-        Offer newOffer = offerMapper.offerDTOtoOfferEntity(addOfferDTO);
+        Offer newOffer = modelMapper.map(addOfferDTO, Offer.class);
+        Category category = categoryRepository.findByCategory(addOfferDTO.getCategory()).orElse(null);
 
         User user = userRepository
                 .findByUsername(userDetails.getUsername())
                 .orElse(null);
 
         newOffer.setPostedBy(user);
+        newOffer.setCategory(category);
         offerRepository.save(newOffer);
     }
 
     public Page<OfferDetailsDTO> getAllOffers(Pageable pageable) {
 
         return offerRepository.findAll(pageable)
-                .map(offerMapper::offerEntityToCardListingOfferDto);
+                .map(offer -> modelMapper.map(offer, OfferDetailsDTO.class));
     }
 
     public List<OfferDetailsDTO> findOfferByName(String name) {
-    //todo case insensitive
+        //todo case insensitive
         return offerRepository.findAllByName(name)
-                .stream().map(offerMapper::offerEntityToCardListingOfferDto)
+                .stream().map(offer -> modelMapper.map(offer, OfferDetailsDTO.class))
                 .toList();
     }
 
     public OfferDetailsDTO findOfferById(Long id) {
         return offerRepository.findById(id)
-                .map(offerMapper::offerEntityToCardListingOfferDto)
+                .map(offer -> modelMapper.map(offer, OfferDetailsDTO.class))
                 .orElse(null);
     }
 }

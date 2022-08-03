@@ -29,6 +29,8 @@
                         </div>
                         <div class="card-text"><span>• Room Type: <th:block th:text="*{roomType}"></th:block> </span>
                         </div>
+                        <div class="card-text"><span>• Category: <th:block th:text="*{category}"></th:block> </span>
+                        </div>
                         <div class="card-text"><span>• Price per Night:  <th:block
                                 th:text="*{pricePerNight}"></th:block> </span></div>
                         <div class="card-text"><span>• Address:  <th:block th:text="*{address}"></th:block> </span>
@@ -49,7 +51,6 @@
     </div>
     <section class="offer-comment-section">
     <h1>Comments</h1>
-<!--                              !  todo QKO CSS  !-->
         <div>
             <!-- Comments submission -->
             <form id="commentForm" method="POST"

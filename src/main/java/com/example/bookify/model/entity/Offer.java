@@ -16,6 +16,9 @@ public class Offer extends BaseEntity {
     @Column(nullable = false)
     private BedroomTypeEnum roomType;
 
+    @ManyToOne
+    public Category category;
+
     private LocalDate availableFrom;
 
     private LocalDate availableUntil;
@@ -121,5 +124,13 @@ public class Offer extends BaseEntity {
 
     public void setNumberOfPeople(Integer numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+    
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

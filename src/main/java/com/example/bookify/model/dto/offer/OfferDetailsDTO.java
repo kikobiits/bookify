@@ -2,6 +2,7 @@ package com.example.bookify.model.dto.offer;
 
 import com.example.bookify.model.entity.User;
 import com.example.bookify.model.enums.BedroomTypeEnum;
+import com.example.bookify.model.enums.CategoryNameEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +12,8 @@ public class OfferDetailsDTO {
     private Long id;
 
     private BedroomTypeEnum roomType;
+
+    private CategoryNameEnum category;
 
     private LocalDate availableFrom;
 
@@ -119,5 +122,13 @@ public class OfferDetailsDTO {
 
     public void setNumberOfPeople(Integer numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
+    }
+
+    public CategoryNameEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryNameEnum category) {
+        this.category = category;
     }
 }

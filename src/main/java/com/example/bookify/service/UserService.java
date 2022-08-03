@@ -3,12 +3,14 @@ package com.example.bookify.service;
 import com.example.bookify.model.dto.UserRegisterDTO;
 import com.example.bookify.model.entity.User;
 import com.example.bookify.model.mapper.UserMapping;
+import com.example.bookify.model.view.UserProfileView;
 import com.example.bookify.repository.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapping userMapping;
     private final UserDetailsService userDetailsService;
-    private EmailService emailService;
+    private final EmailService emailService;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapping userMapping, UserDetailsService userDetailsService, EmailService emailService) {
         this.userRepository = userRepository;
@@ -57,5 +59,16 @@ public class UserService {
         SecurityContextHolder.
                 getContext().
                 setAuthentication(auth);
+    }
+
+    public User getUser(String username) {
+
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " was not found!"));
+    }
+
+    public UserProfileView userToProfileViewMap(User user) {
+
+        return userMapping.userToProfileView(user);
     }
 }

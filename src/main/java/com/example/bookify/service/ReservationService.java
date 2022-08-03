@@ -3,11 +3,12 @@ package com.example.bookify.service;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.Reservation;
 import com.example.bookify.model.entity.User;
-import com.example.bookify.model.mapper.OfferMapper;
+
 import com.example.bookify.model.view.ReservationsViewModel;
 import com.example.bookify.repository.OfferRepository;
 import com.example.bookify.repository.ReservationRepository;
 import com.example.bookify.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,14 @@ public class ReservationService {
 
     private final OfferRepository offerRepository;
     private final UserRepository userRepository;
-    private final OfferMapper offerMapper;
     private final ReservationRepository reservationRepository;
+    private final ModelMapper modelMapper;
 
-    public ReservationService(OfferRepository offerRepository, UserRepository userRepository, OfferMapper offerMapper, ReservationRepository reservationRepository) {
+    public ReservationService(OfferRepository offerRepository, UserRepository userRepository, ReservationRepository reservationRepository, ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
         this.userRepository = userRepository;
-        this.offerMapper = offerMapper;
         this.reservationRepository = reservationRepository;
+        this.modelMapper = modelMapper;
     }
 
     public void reserveOffer(Long id, UserDetails userDetails) {
@@ -55,7 +56,7 @@ public class ReservationService {
                 .map(item -> {
                     Offer offer = item.getOffer();
 
-                    return offerMapper.offerToReservationViewModel(offer);
+                    return modelMapper.map(offer, ReservationsViewModel.class);
                 })
                 .collect(Collectors.toList());
         return collect;
