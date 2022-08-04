@@ -1,5 +1,4 @@
 package com.example.bookify.repository;
-
 import com.example.bookify.model.entity.Category;
 import com.example.bookify.model.enums.CategoryNameEnum;
 import org.springframework.data.jpa.repository.JpaRepository;

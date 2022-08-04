@@ -9,56 +9,45 @@
     <section class="hero">
         <h1>Take a look at our categories and choose the perfect holiday.</h1>
     </section>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="index-category-cards row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
-            <div class="card">
-                <img src="/images/sea.jpg" class="card-img-top" alt="..."/>
+            <div class="category-card card">
+
+                <a th:href="@{/category/sea}"><img src="/images/sea.jpg" class="card-img-top" alt="..."/></a>
                 <div class="card-body">
                     <h5 class="card-title">Sea</h5>
                     <p class="card-text">
                         A wonderful vacation near the beach.
                     </p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Marbella, Spain</li>
-                        <li class="list-group-item">Dalyan, Turkey</li>
-                        <li class="list-group-item">Thessaloniki, Greece</li>
-                    </ul>
+                    <a class="card-link btn btn-outline-info my-2 my-sm-0" th:href="@{/category/sea}">See all</a>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card">
-                <img src="/images/ski.jpg" class="card-img-top" alt="..."/>
+            <div class="category-card card">
+
+                <a th:href="@{/category/mountain}"> <img src="/images/ski.jpg" class="card-img-top" alt="..."/></a>
                 <div class="card-body">
-                    <h5 class="card-title">Skiing</h5>
+                    <h5 class="card-title">Mountain</h5>
                     <p class="card-text">
                         An adventure filled with adrenaline.
                     </p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Borovets, Bulgaria</li>
-                        <li class="list-group-item">Trysil, Norway</li>
-                        <li class="list-group-item">Zermatt, Switzerland</li>
-                    </ul>
+                    <a class="card-link btn btn-outline-info my-2 my-sm-0" th:href="@{/category/mountain}">See all</a>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card">
-                <img src="/images/city.jpg" class="card-img-top" alt="..."/>
+            <div class="category-card card">
+                <a th:href="@{/category/city}"> <img src="/images/city.jpg" class="card-img-top" alt="..."/> </a>
                 <div class="card-body">
                     <h5 class="card-title">City</h5>
                     <p class="card-text">
                         Or a city full of spirit.
                     </p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Madrid, Spain</li>
-                        <li class="list-group-item">Istanbul, Turkey</li>
-                        <li class="list-group-item">Berlin, Germany</li>
-                    </ul>
+                    <a class="card-link btn btn-outline-info my-2 my-sm-0" th:href="@{/category/city}">See all</a>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 

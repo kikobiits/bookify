@@ -2,10 +2,7 @@ package com.example.bookify.model.entity;
 
 import com.example.bookify.model.enums.BedroomTypeEnum;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
