@@ -1,5 +1,6 @@
 package com.example.bookify.service;
 
+import com.example.bookify.model.dto.ReservationDTO;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.Reservation;
 import com.example.bookify.model.entity.User;
@@ -11,6 +12,7 @@ import com.example.bookify.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,7 +33,7 @@ public class ReservationService {
         this.modelMapper = modelMapper;
     }
 
-    public void reserveOffer(Long id, UserDetails userDetails) {
+    public void reserveOffer(Long id, UserDetails userDetails, ReservationDTO reservationDTO) {
 
         Offer offer = offerRepository.getById(id);
 
@@ -43,6 +45,8 @@ public class ReservationService {
 
         reservation.setReservedBy(user);
         reservation.setOffer(offer);
+        reservation.setStartDate(reservationDTO.getStartDate());
+        reservation.setEndDate(reservationDTO.getEndDate());
 
         reservationRepository.save(reservation);
     }
@@ -56,7 +60,13 @@ public class ReservationService {
                 .map(item -> {
                     Offer offer = item.getOffer();
 
-                    return modelMapper.map(offer, ReservationsViewModel.class);
+                    ReservationsViewModel reservationsViewModel = modelMapper.map(offer, ReservationsViewModel.class);
+
+                    reservationsViewModel.setStartDate(item.getStartDate());
+                    reservationsViewModel.setEndDate(item.getEndDate());
+                    reservationsViewModel.setId(item.getId());
+
+                    return reservationsViewModel;
                 })
                 .collect(Collectors.toList());
         return collect;
@@ -65,8 +75,6 @@ public class ReservationService {
     @Transactional
     public void cancelReservation(Long id) {
 
-        Offer offer = offerRepository.findById(id).orElse(null);
-
-        reservationRepository.deleteByOfferId(offer.getId());
+        reservationRepository.deleteById(id);
     }
 }

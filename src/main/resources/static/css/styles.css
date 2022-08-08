@@ -79,7 +79,7 @@ body {
     top: 10%;
     left: 28%;
     width: 800px;
-    height: 800px;
+    height: 1200px;
     font-weight: 800;
     background: white;
     border-radius: 10px;
@@ -145,4 +145,17 @@ body {
     overflow: hidden;
     border-radius: 8px;
     background-color: whitesmoke;
+}
+
+.reservation-dates-box {
+    text-align: right;
+    font-weight: bolder;
+}
+
+.reservation-dates {
+    width: 20%;
+}
+
+#cancel-reservation-button {
+    width: 15%;
 }

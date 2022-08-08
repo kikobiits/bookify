@@ -1,5 +1,6 @@
 package com.example.bookify.web;
 
+import com.example.bookify.model.dto.ReservationDTO;
 import com.example.bookify.model.dto.offer.AddOfferDTO;
 import com.example.bookify.model.dto.offer.SearchOfferDTO;
 import com.example.bookify.service.OfferService;
@@ -73,11 +74,21 @@ public class OfferController {
         return "offer-details";
     }
 
-    @GetMapping("/{id}/details/reserve")
+    @PostMapping("/{id}/details")
     public String reserveLocation(@PathVariable("id") Long id,
-                                  @AuthenticationPrincipal UserDetails userDetails) {
+                                  @AuthenticationPrincipal UserDetails userDetails,
+                                  @Valid ReservationDTO reservationDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) {
 
-        reservationService.reserveOffer(id, userDetails);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("reservationDTO", reservationDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.reservationDTO", bindingResult);
+
+            return "redirect:/{id}/details";
+        }
+
+        reservationService.reserveOffer(id, userDetails, reservationDTO);
 
         return "redirect:/reservations";
     }
@@ -119,5 +130,10 @@ public class OfferController {
     @ModelAttribute(name = "searchOfferModel")
     private SearchOfferDTO searchOfferDTO() {
         return new SearchOfferDTO();
+    }
+
+    @ModelAttribute
+    private ReservationDTO reservationDTO() {
+        return new ReservationDTO();
     }
 }

@@ -15,7 +15,9 @@ public class ReservationsViewModel {
 
     private CategoryNameEnum category;
 
-    private LocalDate availableUntil;
+    private LocalDate startDate;
+
+    private LocalDate endDate;
 
     private String imageUrl;
 
@@ -48,12 +50,20 @@ public class ReservationsViewModel {
         this.roomType = roomType;
     }
 
-    public LocalDate getAvailableUntil() {
-        return availableUntil;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setAvailableUntil(LocalDate availableUntil) {
-        this.availableUntil = availableUntil;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public String getImageUrl() {

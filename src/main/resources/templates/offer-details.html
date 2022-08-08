@@ -10,9 +10,10 @@
     <div class="container-fluid">
         <h2 class="text-center text-white mt-5">Details</h2>
         <input type="hidden" name="offerId" id="offerId" th:value="${offer.id}">
-        <div 
+        <div
                 th:each="o : ${offer}"
                 th:object="${o}"
+
                 class="offers row mx-auto d-flex flex-row justify-content-center">
             <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
                 <div class="card-img-top-wrapper">
@@ -45,12 +46,46 @@
                                 th:text="*{postedBy.getUsername()}"></th:block> </span></div>
                     </li>
                 </ul>
-                <a class="card-link btn btn-outline-info my-2 my-sm-0" id="reserveInput" th:href="@{/offers/{id}/details/reserve(id = *{id})}">Reserve</a>
+                <div>
+                    <form th:object="${reservationDTO}"
+                          th:action="@{/offers/{id}/details(id = ${id})}"
+                          th:method="post">
+
+                        <div class="form-group row reservation-dates-box">
+                            <label for="startDate" class="col-sm-2 col-form-label">Start date</label>
+                            <div class="col-sm-10 reservation-dates">
+                                <input th:field="${reservationDTO.startDate}" th:errorclass="is-invalid" type="date"
+                                       class="form-control" id="startDate"
+                                       aria-describedby="fromHelpInline">
+                                <small id="fromHelpInline" class="invalid-feedback rounded">
+                                    Availability must be present or future.
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row reservation-dates-box">
+                            <label for="endDate" class="col-sm-2 col-form-label">End date</label>
+                            <div class="col-sm-10 reservation-dates">
+                                <input th:field="${reservationDTO.endDate}" th:errorclass="is-invalid" type="date"
+                                       class="form-control" id="endDate"
+                                       aria-describedby="untilHelpInline">
+                                <small id="untilHelpInline" class="invalid-feedback rounded">
+                                    Availability must be present or future.
+                                </small>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-info w-50">Reserve</button>
+
+                        <!--                        <a class="card-link btn btn-outline-info my-2 my-sm-0" id="reserveInput"-->
+<!--                           th:href="@{/offers/{id}/details(id = ${id})}">Reserve</a>-->
+                    </form>
+                </div>
             </div>
         </div>
     </div>
     <section class="offer-comment-section">
-    <h1>Comments</h1>
+        <h1>Comments</h1>
         <div>
             <!-- Comments submission -->
             <form id="commentForm" method="POST"

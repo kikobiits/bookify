@@ -9,28 +9,28 @@ public class ReservationDTO {
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate from;
+    private LocalDate startDate;
 
     @FutureOrPresent
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate until;
+    private LocalDate endDate;
 
     public ReservationDTO() {
     }
 
-    public LocalDate getFrom() {
-        return from;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setFrom(LocalDate from) {
-        this.from = from;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getUntil() {
-        return until;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setUntil(LocalDate until) {
-        this.until = until;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }

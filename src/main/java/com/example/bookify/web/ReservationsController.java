@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,10 @@ public class ReservationsController {
         return "user-reservations";
     }
 
+    // todo: think about calculating night sum and validate night stay
+
     @GetMapping("/cancel/{id}")
-    public String cancelReservation(@PathVariable Long id) {
+    public String cancelReservation(@PathVariable("id") Long id) {
 
         reservationService.cancelReservation(id);
 
