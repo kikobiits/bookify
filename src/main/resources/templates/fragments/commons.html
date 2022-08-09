@@ -44,6 +44,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/reservations">My reservations</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/users/profile">My profile</a>
+                    </li>
                 </th:block>
 
                 <th:block sec:authorize="!isAuthenticated()">
@@ -64,10 +67,10 @@
 
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <div class="form-inline my-2 my-lg-0 px-3">
-                        <div class="text-black">Welcome,
-                            <th:block th:text="${#authentication.principal.firstName}">X</th:block>
-                            !
-                        </div>
+<!--                        <div class="text-black">Welcome,-->
+<!--                            <th:block th:text="${#authentication.principal.firstName}">X</th:block>-->
+<!--                            !-->
+<!--                        </div>-->
                         <form th:action="@{/users/logout}" th:method="post">
                             <input class="btn btn-link nav-link" type="submit" value="Logout">
                         </form>

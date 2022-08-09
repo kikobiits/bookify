@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+
+  mail:
+    from: me@localhost
+    host: localhost
+    password: ''
+    port: 1025
+    protocol: smtp
+    smtp:
+      auth: false
+      starttls:
+        enable: false
+    username: ''

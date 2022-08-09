@@ -14,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
@@ -52,10 +54,10 @@ public class OfferService {
     }
 
     public List<OfferDetailsDTO> findOfferByName(String name) {
-        //todo case insensitive
-        return offerRepository.findAllByName(name)
-                .stream().map(offer -> modelMapper.map(offer, OfferDetailsDTO.class))
-                .toList();
+
+        List<Offer> filtered = offerRepository.findAll().stream().filter(e ->  e.getName().equalsIgnoreCase(name)).toList();
+
+        return filtered.stream().map(offer -> modelMapper.map(offer, OfferDetailsDTO.class)).toList();
     }
 
     public OfferDetailsDTO findOfferById(Long id) {

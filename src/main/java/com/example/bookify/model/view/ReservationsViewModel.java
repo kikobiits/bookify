@@ -31,6 +31,10 @@ public class ReservationsViewModel {
 
     private User postedBy;
 
+    private BigDecimal totalPrice;
+
+    private int numberOfPeople;
+
     public ReservationsViewModel() {
     }
 
@@ -120,5 +124,21 @@ public class ReservationsViewModel {
 
     public void setCategory(CategoryNameEnum category) {
         this.category = category;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public void setNumberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
     }
 }

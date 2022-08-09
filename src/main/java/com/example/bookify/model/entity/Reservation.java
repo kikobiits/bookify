@@ -1,6 +1,7 @@
 package com.example.bookify.model.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -16,6 +17,8 @@ public class Reservation extends BaseEntity{
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    private BigDecimal totalPrice;
 
     public Reservation() {
     }
@@ -50,5 +53,13 @@ public class Reservation extends BaseEntity{
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

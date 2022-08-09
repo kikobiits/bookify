@@ -40,7 +40,7 @@ public class UserRegisterController {
             return "redirect:register";
         }
 
-        userService.registerAndLogin(userRegisterDTO);
+        userService.register(userRegisterDTO);
 
         return "redirect:login";
     }

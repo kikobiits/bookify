@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
+    //todo anonymous & permitAll
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();
@@ -32,7 +34,7 @@ public class SecurityConfig {
                         antMatchers("/", "/users/login", "/users/register").permitAll().
                         antMatchers("/offers/all").permitAll().
 
-                antMatchers("/offers/**", "/api/**").permitAll().
+                antMatchers("/offers/**", "/api/**", "/profile").permitAll().
                 // all other pages are available for logged-in users
                         anyRequest().
                 authenticated().

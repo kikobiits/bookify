@@ -31,7 +31,7 @@ public class UserService {
         this.emailService = emailService;
     }
 
-    public void registerAndLogin(UserRegisterDTO userRegisterDTO) {
+    public void register(UserRegisterDTO userRegisterDTO) {
 
         User newUser = userMapping.userDtoToUser(userRegisterDTO);
 
