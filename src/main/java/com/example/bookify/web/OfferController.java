@@ -1,13 +1,18 @@
 package com.example.bookify.web;
 
+import com.example.bookify.exception.CannotDeleteOffer;
+import com.example.bookify.exception.InvalidDatesException;
+import com.example.bookify.exception.OfferNotFoundException;
 import com.example.bookify.model.dto.ReservationDTO;
 import com.example.bookify.model.dto.offer.AddOfferDTO;
+import com.example.bookify.model.dto.offer.OfferDetailsDTO;
 import com.example.bookify.model.dto.offer.SearchOfferDTO;
 import com.example.bookify.service.OfferService;
 import com.example.bookify.service.ReservationService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -48,6 +53,7 @@ public class OfferController {
         return "offers-add";
     }
 
+    @ExceptionHandler({InvalidDatesException.class})
     @PostMapping("/add")
     public String addOfferConfirm(@Valid AddOfferDTO addOfferDTO,
                                   BindingResult bindingResult,
@@ -61,19 +67,31 @@ public class OfferController {
             return "redirect:add";
         }
 
+        if (addOfferDTO.getAvailableUntil().isBefore(addOfferDTO.getAvailableFrom())) {
+            return "error/dates";
+        }
+
         offerService.addOffer(addOfferDTO, userDetails);
 
         return "redirect:all";
     }
 
+    @ExceptionHandler({OfferNotFoundException.class})
     @GetMapping("/{id}/details")
     public String getOfferDetail(@PathVariable("id") Long id, Model model) {
 
-        model.addAttribute("offer", offerService.findOfferById(id));
+        OfferDetailsDTO offerById = offerService.findOfferById(id);
+
+        if (offerById == null) {
+            return "error/offer-not-found";
+        }
+
+        model.addAttribute("offer", offerById);
 
         return "offer-details";
     }
 
+    @ExceptionHandler({InvalidDatesException.class})
     @PostMapping("/{id}/details")
     public String reserveLocation(@PathVariable("id") Long id,
                                   @AuthenticationPrincipal UserDetails userDetails,
@@ -88,9 +106,23 @@ public class OfferController {
             return "redirect:/{id}/details";
         }
 
+        if (reservationDTO.getEndDate().isBefore(reservationDTO.getStartDate())) {
+            return "error/dates";
+        }
+
         reservationService.reserveOffer(id, userDetails, reservationDTO);
 
         return "redirect:/reservations";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/{id}/details")
+    @ExceptionHandler({CannotDeleteOffer.class})
+    public String deleteOffer(@PathVariable("id") Long id) {
+
+        offerService.deleteOfferById(id);
+
+        return "redirect:/offers/all";
     }
 
     @GetMapping("/search")

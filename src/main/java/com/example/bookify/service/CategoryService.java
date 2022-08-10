@@ -1,11 +1,13 @@
 package com.example.bookify.service;
 
 import com.example.bookify.model.dto.offer.OfferDetailsDTO;
+import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.enums.CategoryNameEnum;
 import com.example.bookify.repository.OfferRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,5 +28,12 @@ public class CategoryService {
                 .stream()
                 .map(offer -> modelMapper.map(offer, OfferDetailsDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public long getAllInCategoryCount(CategoryNameEnum categoryNameEnum) {
+
+        List<Offer> listFiltered = offerRepository.findAllByCategoryCategory(categoryNameEnum);
+
+        return listFiltered.size();
     }
 }

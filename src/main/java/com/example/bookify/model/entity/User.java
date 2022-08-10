@@ -25,7 +25,7 @@ public class User extends BaseEntity{
 
     private boolean isActive;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     public User() {

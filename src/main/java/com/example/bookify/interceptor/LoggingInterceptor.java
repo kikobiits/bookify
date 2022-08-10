@@ -1,4 +1,4 @@
-package com.example.bookify.interceptors;
+package com.example.bookify.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Iterator;
 
 public class LoggingInterceptor implements HandlerInterceptor {
-
-
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

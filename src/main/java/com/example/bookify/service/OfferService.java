@@ -5,6 +5,7 @@ import com.example.bookify.model.dto.offer.OfferDetailsDTO;
 import com.example.bookify.model.entity.Category;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.User;
+import com.example.bookify.model.enums.UserRoleEnum;
 import com.example.bookify.repository.CategoryRepository;
 import com.example.bookify.repository.OfferRepository;
 import com.example.bookify.repository.UserRepository;
@@ -55,7 +56,7 @@ public class OfferService {
 
     public List<OfferDetailsDTO> findOfferByName(String name) {
 
-        List<Offer> filtered = offerRepository.findAll().stream().filter(e ->  e.getName().equalsIgnoreCase(name)).toList();
+        List<Offer> filtered = offerRepository.findAll().stream().filter(e -> e.getName().equalsIgnoreCase(name)).toList();
 
         return filtered.stream().map(offer -> modelMapper.map(offer, OfferDetailsDTO.class)).toList();
     }
@@ -64,5 +65,38 @@ public class OfferService {
         return offerRepository.findById(id)
                 .map(offer -> modelMapper.map(offer, OfferDetailsDTO.class))
                 .orElse(null);
+    }
+
+    public boolean isOwner(String username, Long id) {
+
+        boolean isOwner = offerRepository.
+                findById(id).
+                filter(o -> o.getPostedBy().getUsername().equals(username)).
+                isPresent();
+
+        if (isOwner) {
+            return true;
+        }
+
+        return userRepository.
+                findByUsername(username).
+                filter(this::isAdmin).
+                isPresent();
+    }
+
+    private boolean isAdmin(User user) {
+
+        return user.getUserRoles().
+                stream().
+                anyMatch(r -> r.getUserRole() == UserRoleEnum.ADMIN);
+    }
+
+    public long getAllListedOffersCount() {
+
+        return offerRepository.count();
+    }
+
+    public void deleteOfferById(Long offerId) {
+        offerRepository.deleteById(offerId);
     }
 }

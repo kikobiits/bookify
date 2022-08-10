@@ -47,6 +47,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/users/profile">My profile</a>
                     </li>
+
+                    <th:block sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/manage-users}">Admin panel</a>
+                    </li>
+                    </th:block>
                 </th:block>
 
                 <th:block sec:authorize="!isAuthenticated()">

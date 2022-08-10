@@ -1,4 +1,4 @@
-package com.example.bookify.interceptors;
+package com.example.bookify.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 

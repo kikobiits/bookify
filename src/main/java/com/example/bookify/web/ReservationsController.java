@@ -28,8 +28,6 @@ public class ReservationsController {
         return "user-reservations";
     }
 
-    // todo: think about calculating night sum and validate night stay
-
     @GetMapping("/cancel/{id}")
     public String cancelReservation(@PathVariable("id") Long id) {
 

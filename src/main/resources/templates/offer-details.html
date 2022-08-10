@@ -44,6 +44,14 @@
                                 th:text="*{availableUntil}"></th:block> </span></div>
                         <div class="card-text"><span>• Posted by:  <th:block
                                 th:text="*{postedBy.getUsername()}"></th:block> </span></div>
+                        <div class="card-body">
+                            <form
+                                    th:action="@{/offers/{id}/details(id=*{id})}"
+                                    th:method="delete"
+                            >
+                                <input type="submit" value="Delete">
+                            </form>
+                        </div>
                     </li>
                 </ul>
                 <div>
@@ -94,7 +102,7 @@
                         <button type="submit" class="btn btn-info w-50">Reserve</button>
 
                         <!--                        <a class="card-link btn btn-outline-info my-2 my-sm-0" id="reserveInput"-->
-<!--                           th:href="@{/offers/{id}/details(id = ${id})}">Reserve</a>-->
+                        <!--                           th:href="@{/offers/{id}/details(id = ${id})}">Reserve</a>-->
                     </form>
                 </div>
             </div>

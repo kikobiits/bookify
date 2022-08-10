@@ -1,5 +1,9 @@
 package com.example.bookify.model.view;
 
+import com.example.bookify.model.enums.UserRoleEnum;
+
+import java.util.Set;
+
 public class UserProfileView {
 
     private String username;
@@ -11,6 +15,8 @@ public class UserProfileView {
     private int age;
 
     private String email;
+
+    private Set<UserRoleEnum> roleEnums;
 
     public UserProfileView() {
     }
@@ -53,5 +59,13 @@ public class UserProfileView {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<UserRoleEnum> getRoleEnums() {
+        return roleEnums;
+    }
+
+    public void setRoleEnums(Set<UserRoleEnum> roleEnums) {
+        this.roleEnums = roleEnums;
     }
 }

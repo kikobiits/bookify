@@ -159,3 +159,20 @@ body {
 #cancel-reservation-button {
     width: 15%;
 }
+
+.custom-error {
+    position: absolute;
+    bottom: 80%;
+    right: 20%;
+}
+
+.admin-panel {
+    position: absolute;
+    left: 30%;
+    padding: 20px;
+    font-weight: bolder;
+}
+
+.panel-split {
+    padding-left: 50px;
+}

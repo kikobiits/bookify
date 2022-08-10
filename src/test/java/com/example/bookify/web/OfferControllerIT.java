@@ -1,6 +1,9 @@
 package com.example.bookify.web;
 
+import com.example.bookify.model.entity.Category;
+import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.User;
+import com.example.bookify.util.TestDataUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +25,20 @@ public class OfferControllerIT {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private TestDataUtils testDataUtils;
+
     private User testUser;
+
+    private Category testCategory;
+
+    private Offer testOffer;
 
     @BeforeEach
     void setUp() {
-        testUser = new User();
-        testUser.setUsername("petko");
-        testUser.setFirstName("petko");
-        testUser.setLastName("petko");
-        testUser.setEmail("petko@abv.bg");
-        testUser.setPassword("123123");
+        testUser = testDataUtils.createTestUser("petko");
+        testCategory = testDataUtils.createTestCategory();
+        testOffer = testDataUtils.createTestOffer(testUser);
     }
 
     @WithMockUser(
@@ -44,38 +51,14 @@ public class OfferControllerIT {
                 andExpect(view().name("offers-add"));
     }
 
+
+
     @Test
     void testAllOffersView() throws Exception {
         mockMvc.perform(get("/offers/all")).
                 andExpect(status().isOk()).
                 andExpect(view().name("all-offers"));
     }
-
-    @WithUserDetails(value = "user@example.com",
-            userDetailsServiceBeanName = "testUserDataService")
-    @Test
-    void testAddOfferFunctionality() throws Exception {
-        mockMvc.perform(post("/offers/add").
-                        param("roomType", "SINGLE").
-                        param("name", "qvkata").
-                        param("category", "CITY").
-                        param("availableFrom", "2022-08-20").
-                        param("availableUntil", "2022-08-21").
-                        param("numberOfPeople", "12").
-                        param("address", "Ravda").
-                        param("imageUrl", "testImage").
-                        param("pricePerNight", "30").
-                        param("cityCountry", "Nessebar").
-
-                        with(csrf())
-                ).
-
-                andExpect(status().is3xxRedirection()).
-                andExpect(redirectedUrl("all"));
-    }
-
-    @WithUserDetails(value = "user@example.com",
-            userDetailsServiceBeanName = "testUserDataService")
 
     @Test
     void testSearchView() throws Exception {
