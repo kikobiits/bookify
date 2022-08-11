@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -22,5 +23,12 @@ public class UserLoginControllerIT {
         mockMvc.perform(get("/users/login")).
                 andExpect(status().isOk()).
                 andExpect(view().name("login"));
+    }
+
+    @Test
+    void loginFailedTest() throws Exception {
+
+        mockMvc.perform(post("/users/login")).
+                andExpect(status().is4xxClientError());
     }
 }

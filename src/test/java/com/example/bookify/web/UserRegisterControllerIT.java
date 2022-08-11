@@ -1,12 +1,6 @@
 package com.example.bookify.web;
 
-import com.example.bookify.model.entity.User;
-import com.example.bookify.repository.UserRepository;
 import com.example.bookify.service.EmailService;
-import org.aspectj.lang.annotation.After;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,7 +45,7 @@ public class UserRegisterControllerIT {
                 .param("confirmPassword", "123123")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost/users/login"));
+                .andExpect(redirectedUrl("register"));
 
         verify(mockEmailService).sendRegistrationEmail("petko@abv.bg", "petko");
     }

@@ -19,35 +19,33 @@ import java.time.LocalDate;
 @Component
 public class TestDataUtils {
 
-    private final UserRoleRepository userRoleRepository;
     private final UserRepository userRepository;
     private final OfferRepository offerRepository;
     private final CategoryRepository categoryRepository;
 
-    public TestDataUtils(UserRoleRepository userRoleRepository, UserRepository userRepository, OfferRepository offerRepository, CategoryRepository categoryRepository) {
-        this.userRoleRepository = userRoleRepository;
+    public TestDataUtils(UserRepository userRepository, OfferRepository offerRepository, CategoryRepository categoryRepository) {
         this.userRepository = userRepository;
         this.offerRepository = offerRepository;
         this.categoryRepository = categoryRepository;
     }
 
-    private void initRoles() {
-
-        if (userRoleRepository.count() == 0) {
-            UserRoleEntity userRole = new UserRoleEntity();
-            userRole.setUserRole(UserRoleEnum.USER);
-
-            UserRoleEntity adminRole = new UserRoleEntity();
-            adminRole.setUserRole(UserRoleEnum.ADMIN);
-
-            userRoleRepository.save(adminRole);
-            userRoleRepository.save(userRole);
-        }
-    }
+//    private void initRoles() {
+//
+//        if (userRoleRepository.count() == 0) {
+//            UserRoleEntity userRole = new UserRoleEntity();
+//            userRole.setUserRole(UserRoleEnum.USER);
+//
+//            UserRoleEntity adminRole = new UserRoleEntity();
+//            adminRole.setUserRole(UserRoleEnum.ADMIN);
+//
+//            userRoleRepository.save(adminRole);
+//            userRoleRepository.save(userRole);
+//        }
+//    }
 
     public User createTestAdmin(String username) {
 
-        initRoles();
+//        initRoles();
 
         var admin = new User();
 
@@ -58,14 +56,13 @@ public class TestDataUtils {
         admin.setLastName("Petrov");
         admin.setAge(18);
         admin.setActive(true);
-        admin.setUserRoles(userRoleRepository.findAll());
 
         return userRepository.save(admin);
     }
 
     public User createTestUser(String username) {
 
-        initRoles();
+//        initRoles();
 
         var admin = new User();
 
@@ -76,7 +73,6 @@ public class TestDataUtils {
         admin.setLastName("Petrov");
         admin.setAge(18);
         admin.setActive(true);
-        admin.setUserRoles(userRoleRepository.findAll());
 
         return userRepository.save(admin);
     }
@@ -84,12 +80,14 @@ public class TestDataUtils {
     public Offer createTestOffer(User postedBy) {
         var offer = new Offer();
 
+        offer.setId(1L);
         offer.setImageUrl("test");
-        offer.setPostedBy(postedBy);
         offer.setName("akva");
         offer.setAddress("testAdress");
+        offer.setCityCountry("Ravda");
         offer.setPricePerNight(BigDecimal.valueOf(50));
         offer.setRoomType(BedroomTypeEnum.APARTMENT);
+        offer.setPostedBy(postedBy);
         offer.setCategory(createTestCategory());
         offer.setAvailableFrom(LocalDate.of(2022, 12, 21));
         offer.setAvailableFrom(LocalDate.of(2022, 12, 31));
@@ -106,7 +104,7 @@ public class TestDataUtils {
     public void cleanUpDatabase() {
         offerRepository.deleteAll();
         userRepository.deleteAll();
-        userRoleRepository.deleteAll();
+//        userRoleRepository.deleteAll();
         categoryRepository.deleteAll();
     }
 }

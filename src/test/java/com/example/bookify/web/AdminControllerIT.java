@@ -8,20 +8,23 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeControllerIT {
+public class AdminControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @WithUserDetails(value = "admin@example.com",
+            userDetailsServiceBeanName = "testUserDataService")
     @Test
-    void testHomePageView() throws Exception {
+    void testAdminPanel() throws Exception {
 
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get("/admin/manage-users"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(view().name("admin-panel"));
     }
 }

@@ -62,6 +62,7 @@ public class OfferService {
     }
 
     public OfferDetailsDTO findOfferById(Long id) {
+
         return offerRepository.findById(id)
                 .map(offer -> modelMapper.map(offer, OfferDetailsDTO.class))
                 .orElse(null);
