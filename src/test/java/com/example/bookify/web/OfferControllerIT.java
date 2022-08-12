@@ -1,8 +1,11 @@
 package com.example.bookify.web;
 
+import com.example.bookify.model.dto.offer.OfferDetailsDTO;
 import com.example.bookify.model.entity.Category;
 import com.example.bookify.model.entity.Offer;
 import com.example.bookify.model.entity.User;
+import com.example.bookify.repository.OfferRepository;
+import com.example.bookify.service.OfferService;
 import com.example.bookify.util.TestDataUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,6 +34,12 @@ public class OfferControllerIT {
     private Category testCategory;
 
     private Offer testOffer;
+
+    @Autowired
+    private OfferRepository offerRepository;
+
+    @Autowired
+    private OfferService offerService;
 
     @BeforeEach
     void setUp() {
@@ -51,35 +61,28 @@ public class OfferControllerIT {
     @Test
     void testAddOfferConfirm() throws Exception {
         mockMvc.perform(get("/offers/add")
-                .param("roomType", "FAMILY")
-                .param("imageUrl", "TestIMG")
-                .param("pricePerNight", "30")
-                .param("name", "akva")
-                .param("cityCountry", "ravda")
-                .param("address", "radva")
-                .param("availableFrom", "2000-12-21")
-                .param("availableUntil", "2200-12-21")
-                .param("numberOfPeople", "22")
-                .param("category", "SEA")
-                        .with(csrf())).
-                andExpect(status().isOk());
-    }
-
-    @Test
-    void testSearchDTO() throws Exception {
-        mockMvc.perform(get("/offers/search")
+                        .param("roomType", "FAMILY")
+                        .param("imageUrl", "TestIMG")
+                        .param("pricePerNight", "30")
                         .param("name", "akva")
+                        .param("cityCountry", "ravda")
+                        .param("address", "radva")
+                        .param("availableFrom", "2000-12-21")
+                        .param("availableUntil", "2200-12-21")
+                        .param("numberOfPeople", "22")
+                        .param("category", "SEA")
                         .with(csrf())).
                 andExpect(status().isOk());
     }
 
     @Test
-    void testAllOffersView() throws Exception {
-        mockMvc.perform(get("/offers/all")).
-                andExpect(status().isOk()).
-                andExpect(view().name("all-offers"));
-    }
+    void searchNameTest() throws Exception {
 
+        mockMvc.perform(get("/offers/search"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("offer-search"));
+    }
+    
     @Test
     void testSearchView() throws Exception {
 

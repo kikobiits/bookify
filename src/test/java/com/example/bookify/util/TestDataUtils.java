@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Component
 public class TestDataUtils {
@@ -73,6 +74,9 @@ public class TestDataUtils {
         admin.setLastName("Petrov");
         admin.setAge(18);
         admin.setActive(true);
+        UserRoleEntity adm = new UserRoleEntity();
+        adm.setUserRole(UserRoleEnum.ADMIN);
+        admin.setUserRoles(List.of(adm));
 
         return userRepository.save(admin);
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.verify;
@@ -32,6 +33,8 @@ public class UserRegisterControllerIT {
                 .andExpect(view().name("register-auth"));
     }
 
+    @WithUserDetails(value = "admin@example.com",
+            userDetailsServiceBeanName = "testUserDataService")
     @Test
     void testUserRegistration() throws Exception{
 
@@ -45,7 +48,7 @@ public class UserRegisterControllerIT {
                 .param("confirmPassword", "123123")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("register"));
+                .andExpect(redirectedUrl("http://localhost/users/login"));
 
         verify(mockEmailService).sendRegistrationEmail("petko@abv.bg", "petko");
     }
